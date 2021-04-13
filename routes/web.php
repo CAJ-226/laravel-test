@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Deletecontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TaskController::class, 'index']);
 Route::get('/task/{task}', [TaskController::class,'show']);
-Route::get('/task/{task}/delete',[TaskController::class,'cancel']);
+Route::get('/task/{task}/delete',[DeleteController::class,'cancel']);
 Route::get('/alphabet', [TaskController::class, 'indexAlphabet']);

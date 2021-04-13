@@ -15,31 +15,25 @@ class TaskController extends Controller
 
     public function show($task_id){
       $task = \App\Models\Task::find($task_id);
-      if($task->completed){
-        $message = "task completed";
+      if($task){
+        if($task->completed){
+          $message = "task completed";
+        } else {
+          $message = "task ongoing";
+        }
+        return view('show',[
+          "task_id"=>$task->id,
+          "title" => $task->title,
+          "description" => $task->description,
+          "date"=>$task->created_at->format('d F Y'),
+          "message"=>$message
+        ]);
       } else {
-        $message = "task ongoing";
+        return view('no-exist',[
+          'task_id'=>$task_id
+        ]);
       }
-      return view('show',[
-        "task_id"=>$task->id,
-        "title" => $task->title,
-        "description" => $task->description,
-        "date"=>$task->created_at->format('d F Y'),
-        "message"=>$message
-      ]);
-    }
 
-    public function cancel($task_id){
-      $task = \App\Models\Task::find($task_id);
-      if ($task){
-        $task->delete();
-        $message = 'The task '.$task_id.' has been deleted.';
-      } else {
-        $message = 'The task '.$task_id.' doesn\'t exist.';
-      }
-      return view('cancel',[
-        'message' => $message
-      ]);
     }
 
     public function indexAlphabet(){
